@@ -1,3 +1,5 @@
+// This is context API method
+
 import { createContext, useReducer } from "react";
 
 const cartContext = createContext({
