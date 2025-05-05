@@ -3,8 +3,10 @@ import Modal from './UI/Modal';
 import { currencyFormatter } from '../util/formatting';
 import Button from './UI/Button';
 import { hideCart, showCheckout } from '../store/userProgressSlice';
+import CartItem from './CartItem';
+import { addItem, removeItem } from '../store/cartSlice';
 
-export default function Cart({ onClose }) {
+export default function Cart() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const isCartOpen = useSelector((state) => state.userProgress?.progress === 'cart') || false;
@@ -28,9 +30,17 @@ export default function Cart({ onClose }) {
           <li>Your cart is empty</li>
         ) : (
           cartItems.map((item) => (
-            <li key={item.id}>
-              {item.name} - {item.quantity}
-            </li>
+            // <li key={item.id}>
+            //   {item.name} - {item.quantity}
+            // </li>  // because now we have seprate comp
+            <CartItem 
+            key={item.id} 
+            name={item.name}
+            quantity={item.quantity}
+            price={item.price}
+            onIncrease={cartItems.addItem(item)}
+            onDecrease={cartItems.removeItem(item.id)}
+            />
           ))
         )}
       </ul>
