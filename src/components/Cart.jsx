@@ -20,26 +20,33 @@ export default function Cart() {
     dispatch(showCheckout());
   };
 
+  // Handler for increasing item quantity
+  const handleIncrease = (item) => {
+    dispatch(addItem(item));
+  };
+
+  // Handler for decreasing item quantity
+  const handleDecrease = (id) => {
+    dispatch(removeItem(id));
+  };
+
   if (!isCartOpen) return null;
 
   return (
-    <Modal className="cart" open={isCartOpen} >
+    <Modal className="cart" open={isCartOpen}>
       <h2>Your Cart</h2>
       <ul>
         {cartItems.length === 0 ? (
           <li>Your cart is empty</li>
         ) : (
           cartItems.map((item) => (
-            // <li key={item.id}>
-            //   {item.name} - {item.quantity}
-            // </li>  // because now we have seprate comp
-            <CartItem 
-            key={item.id} 
-            name={item.name}
-            quantity={item.quantity}
-            price={item.price}
-            onIncrease={cartItems.addItem(item)}
-            onDecrease={cartItems.removeItem(item.id)}
+            <CartItem
+              key={item.id}
+              name={item.name}
+              quantity={item.quantity}
+              price={item.price}
+              onIncrease={() => handleIncrease(item)} // Dispatch addItem
+              onDecrease={() => handleDecrease(item.id)} // Dispatch removeItem
             />
           ))
         )}
