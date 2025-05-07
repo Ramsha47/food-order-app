@@ -11,7 +11,7 @@ export default function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const isCartOpen = useSelector((state) => state.userProgress?.progress === 'cart') || false;
   const cartTotal = cartItems.reduce((totalPrice, item) => totalPrice + item.quantity * Number(item.price), 0);
-  console.log("hiii",isCartOpen)
+  
   const handleCloseCart = () => {
     dispatch(hideCart());
   };

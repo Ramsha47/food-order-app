@@ -14,13 +14,32 @@ export default function Checkout(){
     const handleCloseCheckout = () => {
         dispatch(hideCheckout());
       };
+
+    const handleSubmit = (event)=>{
+      event.preventDefault()
+      const fd = new FormData(event.target)
+      const customerData = Object.fromEntries(fd.entries()) //{email: value}
+      //sending a post req to submit an order
+      fetch('http://localhost:3000/orders',{
+        method: 'POST',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+            order:{
+                items:cartItems,
+                customer:customerData
+            }
+        })
+      })
+    }
     
     return (
         <Modal open={isCheckoutOpen} onClose={handleCloseCheckout}>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h2>Checkout</h2>
                 <p>Total Amount:{currencyFormatter.format(cartTotal)}</p>
-                <Input  label="Full-name" type="text" id="full-name"/>
+                <Input  label="Full-name" type="text" id="name"/>
                 <Input  label="Email Address" type="email" id="email"/>
                 <Input  label="Street" type="text" id="street"/>
                 <div className="control-row">
@@ -35,3 +54,11 @@ export default function Checkout(){
         </Modal>
     )
 }
+
+
+// FORM HANDLING
+/* 
+   We actually can use two approahes to handle the form data submission 
+   1. manually using onsubmit 
+   2. using formactions provided by react
+*/
