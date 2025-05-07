@@ -1,6 +1,7 @@
 import Cart from "./components/Cart";
 import Header from "./components/Header";
 import Meals from "./components/Meals";
+import Checkout from "./components/Checkout";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Header />
       <Meals />
       <Cart />
+      <Checkout />
     </>
   );
 }
