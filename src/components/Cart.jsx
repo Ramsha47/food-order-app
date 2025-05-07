@@ -11,7 +11,7 @@ export default function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const isCartOpen = useSelector((state) => state.userProgress?.progress === 'cart') || false;
   const cartTotal = cartItems.reduce((totalPrice, item) => totalPrice + item.quantity * Number(item.price), 0);
-
+  console.log("hiii",isCartOpen)
   const handleCloseCart = () => {
     dispatch(hideCart());
   };
@@ -33,7 +33,11 @@ export default function Cart() {
   if (!isCartOpen) return null;
 
   return (
-    <Modal className="cart" open={isCartOpen}>
+    <Modal 
+    className="cart" 
+    open={isCartOpen}
+    onClose={isCartOpen ? handleCloseCart : null}
+    >
       <h2>Your Cart</h2>
       <ul>
         {cartItems.length === 0 ? (
@@ -57,7 +61,7 @@ export default function Cart() {
           Close
         </Button>
         {cartItems.length > 0 && (
-          <Button textOnly onClick={handleGoToCheckout}>
+          <Button  onClick={handleGoToCheckout}>
             Go to Checkout
           </Button>
         )}
