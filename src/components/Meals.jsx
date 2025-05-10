@@ -1,14 +1,14 @@
 import MealItem from "./MealItem";
 import useHttp from "../hooks/useHttp";
 
-
+const requestConfig = {}
 export default function Meals(){
     
     const {
         data:loadedMeals, 
         isLoading,
         error
-    } = useHttp('http://localpost:3000/meals',{},[])
+    } = useHttp('http://localhost:3000/meals',requestConfig,[])
 
     if(isLoading){
         <p>Fetching meals ...</p>
